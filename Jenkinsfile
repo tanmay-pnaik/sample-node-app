@@ -1,4 +1,7 @@
 node {
+  stage 'Checkout'
+  git 'https://github.com/tanmay-pnaik/sample-node-app.git'
+
   stage 'Docker build'
   docker.build('sample-node-app')
 
