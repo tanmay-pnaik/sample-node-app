@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: sample-node-app
+
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: sample-node-app
+    spec:
+      containers:
+        - name: sample-node-app
+          image: 772825290081.dkr.ecr.ap-southeast-1.amazonaws.com/sample-node-app:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "60m"
+              memory: "150Mi"
+            limits:
+              cpu: "150m"
+              memory: "250Mi"
+          ports:
+            - containerPort: 8080
+              name: sample-node-app
+          terminationMessagePolicy: "FallbackToLogsOnError"
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer
+spec:
+  ports:
+    - port: 8080
+  selector:
+    app.kubernetes.io/name: sample-node-app
