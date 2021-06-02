@@ -138,7 +138,7 @@ pipeline {
           kubectl config set-context --current --namespace=${CLUSTER_NAMESPACE}
           kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
           kubectl patch deployment sample-node-app -p \
-            '{"spec":{"template":{"spec":{"containers":"image":"${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}"}}}}}'
+            '{"spec":{"template":{"spec":{"containers":"image":${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}}}}}}'
         '''
       }
     }
