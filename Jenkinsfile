@@ -147,7 +147,7 @@ pipeline {
           imageWithTag=${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}
           echo "Image with tag is " $imageWithTag
           kubectl patch deployment sample-node-app -p \
-            '{"spec":{"containers":{"image":'"$imageWithTag"'}}}'
+            '{"spec":{"containers":{"image":"'$imageWithTag'"}}}'
         '''
       }
     }
