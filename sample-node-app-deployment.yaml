@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sample-node-app
-          image: 772825290081.dkr.ecr.ap-southeast-1.amazonaws.com/sample-node-app:latest
+          image: 772825290081.dkr.ecr.ap-southeast-1.amazonaws.com/rakbank-customer-service-jenkins-qa:latest
           imagePullPolicy: Always
           resources:
             requests:
@@ -34,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: customer
+  name: sample-node-app
 spec:
   ports:
     - port: 8080
