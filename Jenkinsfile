@@ -7,6 +7,7 @@ pipeline {
   agent any
   environment {
     APP_NAME = 'sample-node-app'
+    DEPLOYMENT_NAME = 'sample-node-app'
     DOCKER_REPO_NAME = 'rakbank-customer-service-jenkins-qa'
     DEPLOYMENT_FILE_NAME = 'sample-node-app-deployment.yaml'
     DOCKER_REPO_URL = '772825290081.dkr.ecr.ap-southeast-1.amazonaws.com'
@@ -91,11 +92,6 @@ pipeline {
           echo 'Author: ' + gitAuthor
           echo 'Commit ID: ' + gitCommitId
           echo 'Commit mesage: ' + gitCommitMessage
-
-          imageWithTag = sh(
-            returnStdout: true,
-            script: "echo ${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}"
-          ).trim()
         }
       }
     }
@@ -146,8 +142,8 @@ pipeline {
 
           imageWithTag=${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}
           echo "Image with tag is " $imageWithTag
-          kubectl patch deployment sample-node-app -p \
-          '{"spec":{"template":{"spec":{"containers":[{"image":"'$imageWithTag'","name":"sample-node-app"}]}}}}'
+          kubectl patch deployment ${DEPLOYMENT_NAME} -p \
+          '{"spec":{"template":{"spec":{"containers":[{"image":"'$imageWithTag'","name":"'${DEPLOYMENT_NAME}'"}]}}}}'
         '''
       }
     }
