@@ -133,7 +133,7 @@ pipeline {
     stage ('Deploy') {
       steps {
         // Updating KUBECONFIG, setting namespace and applying deployment YAML file
-        imageWithTag = DOCKER_REPO_URL + '/' + DOCKER_REPO_NAME + ':' + DOCKER_IMAGE_TAG
+        imageWithTag = sh(returnStdout: true, script: "echo ${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}").trim()
         echo "Image is ${imageWithTag}"
         sh '''
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
