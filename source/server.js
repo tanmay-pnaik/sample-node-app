@@ -29,6 +29,7 @@ function foo() {
   console.log("Hello, World!");
   console.log("Hello, Tanmay yo!");
   console.log("Hello, Naveen!");
+  console.log("Hello, Vishal!");
 }
 
 a = foo();
