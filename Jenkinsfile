@@ -145,7 +145,7 @@ pipeline {
           kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
 
           imageWithTag=${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}
-          echo "Image with tag is " $imageWithTag
+          echo "Image deployed is: " $imageWithTag
           kubectl patch deployment ${DEPLOYMENT_NAME} -p \
           '{"spec":{"template":{"spec":{"containers":[{"image":"'$imageWithTag'","name":"'${DEPLOYMENT_NAME}'"}]}}}}'
         '''
