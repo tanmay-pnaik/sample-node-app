@@ -137,7 +137,7 @@ pipeline {
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
           kubectl config set-context --current --namespace=${CLUSTER_NAMESPACE}
           kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
-          kubectl patch deployment sample-node-app -p "{\"spec\":{\"template\":{\"metadata\":{\"labels\":{\"date\":\"`date +'%s'`\"}}}}}"
+          kubectl patch deployment sample-node-app --namespace=${CLUSTER_NAMESPACE} -p "{\"spec\":{\"containers\":{\"image\":\"`${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}`\"}}}"
         '''
       }
     }
