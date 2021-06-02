@@ -98,7 +98,8 @@ pipeline {
     stage('Git') {
       steps {
         echo "App name is ${APP_NAME}"
-        git url: 'https://github.com/tanmay-pnaik/sample-node-app.git'
+        git branch: 'dev',
+            url: 'https://github.com/tanmay-pnaik/sample-node-app.git'
       }
     }
 
@@ -135,7 +136,7 @@ pipeline {
         sh '''
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
           kubectl config set-context --current --namespace=${CLUSTER_NAMESPACE}
-          kubectl apply -f /root/${DEPLOYMENT_FILE_NAME}
+          kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
         '''
       }
     }
