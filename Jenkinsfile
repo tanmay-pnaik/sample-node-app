@@ -135,7 +135,7 @@ pipeline {
         sh '''
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
           kubectl config set-context --current --namespace=${CLUSTER_NAMESPACE}
-          kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
+          kubectl apply -f /root/${DEPLOYMENT_FILE_NAME}
         '''
       }
     }
