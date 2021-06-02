@@ -13,6 +13,7 @@ spec:
       labels:
         app.kubernetes.io/name: sample-node-app
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
         - name: sample-node-app
           image: 772825290081.dkr.ecr.ap-southeast-1.amazonaws.com/rakbank-customer-service-jenkins-qa:latest
