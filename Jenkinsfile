@@ -140,13 +140,12 @@ pipeline {
       steps {
         // Updating KUBECONFIG, setting namespace and applying deployment YAML file
         sh '''
-          imageWithTag=${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}
-          echo "Image that will be deployed is: " $imageWithTag
-
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
           kubectl config set-context --current --namespace=${CLUSTER_NAMESPACE}
           kubectl apply -f ${WORKSPACE}/${DEPLOYMENT_FILE_NAME}
 
+          imageWithTag=${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}
+          echo "Image with tag is " $imageWithTag
           kubectl patch deployment ${DEPLOYMENT_NAME} -p \
           '{"spec":{"template":{"spec":{"containers":[{"image":"'$imageWithTag'","name":"'${DEPLOYMENT_NAME}'"}]}}}}'
         '''
