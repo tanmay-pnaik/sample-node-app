@@ -92,6 +92,11 @@ pipeline {
           echo 'Author: ' + gitAuthor
           echo 'Commit ID: ' + gitCommitId
           echo 'Commit mesage: ' + gitCommitMessage
+
+          imageWithTag = sh(
+            returnStdout: true,
+            script: "echo ${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}"
+          ).trim()
         }
       }
     }
