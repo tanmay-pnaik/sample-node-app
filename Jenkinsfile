@@ -91,6 +91,11 @@ pipeline {
           echo 'Author: ' + gitAuthor
           echo 'Commit ID: ' + gitCommitId
           echo 'Commit mesage: ' + gitCommitMessage
+
+          imageWithTag = sh(
+            returnStdout: true,
+            script: "echo ${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}"
+          ).trim()
         }
       }
     }
@@ -133,7 +138,6 @@ pipeline {
     stage ('Deploy') {
       steps {
         // Updating KUBECONFIG, setting namespace and applying deployment YAML file
-        imageWithTag = sh(returnStdout: true, script: "echo ${DOCKER_REPO_URL}/${DOCKER_REPO_NAME}:${DOCKER_IMAGE_TAG}").trim()
         echo "Image is ${imageWithTag}"
         sh '''
           aws eks --region ap-southeast-1 update-kubeconfig --name frute-backend
